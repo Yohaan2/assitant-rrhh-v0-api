@@ -1,80 +1,136 @@
 import { Permission } from '../../modules/auth/entities/permission.entity';
 
 export const permissionsData: Partial<Permission>[] = [
-  // Empleados
-  { resource: 'employees', action: 'create', description: 'Crear empleados' },
-  { resource: 'employees', action: 'read', description: 'Ver empleados' },
   {
-    resource: 'employees',
-    action: 'update',
-    description: 'Actualizar empleados',
+    resource: 'vacation',
+    action: 'calculate',
+    description: 'Generar cálculo de vacaciones y la solicitud de aprobación',
   },
   {
-    resource: 'employees',
-    action: 'delete',
-    description: 'Eliminar empleados',
+    resource: 'vacation',
+    action: 'generate_receipt',
+    description: 'Generar recibos de vacaciones y la solicitud de aprobación',
   },
   {
-    resource: 'employees',
-    action: 'export',
-    description: 'Exportar lista de empleados',
+    resource: 'vacation',
+    action: 'request_receipt_send',
+    description: 'Solicitar envío de recibos por correo',
+  },
+  {
+    resource: 'vacation',
+    action: 'generate_report',
+    description: 'Generar reportes de vacaciones y la solicitud de aprobación',
+  },
+  {
+    resource: 'vacation',
+    action: 'request_report_send',
+    description: 'Solicitar envío de reportes por correo',
   },
 
   // Nóminas
-  { resource: 'payroll', action: 'create', description: 'Crear nóminas' },
-  { resource: 'payroll', action: 'read', description: 'Ver nóminas' },
-  { resource: 'payroll', action: 'update', description: 'Actualizar nóminas' },
-  { resource: 'payroll', action: 'delete', description: 'Eliminar nóminas' },
-  { resource: 'payroll', action: 'approve', description: 'Aprobar nóminas' },
-  { resource: 'payroll', action: 'export', description: 'Exportar nóminas' },
-
-  // Reportes
-  { resource: 'reports', action: 'read', description: 'Ver reportes' },
-  { resource: 'reports', action: 'export', description: 'Exportar reportes' },
   {
-    resource: 'reports',
-    action: 'advanced',
-    description: 'Reportes avanzados',
+    resource: 'payroll',
+    action: 'calculate',
+    description: 'Generar cálculo de nómina',
+  },
+  {
+    resource: 'payroll',
+    action: 'request_adjustment',
+    description: 'Solicitar cambios en sueldos/tasas de cambio',
+  },
+  {
+    resource: 'payroll',
+    action: 'generate_receipt',
+    description: 'Generar recibos de nómina',
+  },
+  {
+    resource: 'payroll',
+    action: 'request_receipt_send',
+    description: 'Solicitar envío de recibos por correo',
+  },
+  {
+    resource: 'payroll',
+    action: 'generate_report',
+    description: 'Generar reportes de nómina',
+  },
+  {
+    resource: 'payroll',
+    action: 'request_report_send',
+    description: 'Solicitar envío de reportes por correo',
   },
 
-  // Departamentos
+  // Liquidaciones
   {
-    resource: 'departments',
+    resource: 'settlement',
+    action: 'calculate',
+    description: 'Generar cálculo de liquidaciones',
+  },
+  {
+    resource: 'settlement',
+    action: 'generate_receipt',
+    description: 'Generar recibos de liquidación',
+  },
+  {
+    resource: 'settlement',
+    action: 'request_receipt_send',
+    description: 'Solicitar envío de recibos por correo',
+  },
+  {
+    resource: 'settlement',
+    action: 'generate_report',
+    description: 'Generar reportes de liquidación',
+  },
+  {
+    resource: 'settlement',
+    action: 'request_report_send',
+    description: 'Solicitar envío de reportes por correo',
+  },
+
+  // Notificaciones y Solicitudes Generales
+  {
+    resource: 'notifications',
+    action: 'approve',
+    description:
+      'Autorizar o negar solicitudes de envío de recibos, aumentos salariales, cambios de tasas de cambio, nóminas, vacaciones y liquidaciones',
+  },
+  {
+    resource: 'notifications',
+    action: 'reject',
+    description: 'Rechazar solicitudes generales',
+  },
+
+  // Expedientes de Trabajadores
+  {
+    resource: 'employee_records',
     action: 'create',
-    description: 'Crear departamentos',
+    description:
+      'Crear el expediente del trabajador con nombre completo, cédula, fecha de ingreso, categoría de trabajadores y nómina, y sueldo',
   },
-  { resource: 'departments', action: 'read', description: 'Ver departamentos' },
   {
-    resource: 'departments',
+    resource: 'employee_records',
+    action: 'read',
+    description: 'Ver expedientes de trabajadores',
+  },
+
+  // Información de Personal
+  {
+    resource: 'personal_info',
     action: 'update',
-    description: 'Actualizar departamentos',
-  },
-  {
-    resource: 'departments',
-    action: 'delete',
-    description: 'Eliminar departamentos',
+    description:
+      'Modificar información en los expedientes de trabajadores: Status, Documentación, Datos personales, Registro de Prestamos, categoría de nómina, Categoría de Trabajadores, Tipo de contrato, Jornada laboral, Grupo profesional, Sector de actividad y si son empleados o contratistas independientes',
   },
 
-  // Documentos
-  { resource: 'documents', action: 'upload', description: 'Subir documentos' },
-  { resource: 'documents', action: 'read', description: 'Ver documentos' },
+  // Políticas de Cálculo
   {
-    resource: 'documents',
-    action: 'delete',
-    description: 'Eliminar documentos',
+    resource: 'calculation_policies',
+    action: 'create',
+    description:
+      'Crear/Modificar políticas de cálculos generales pre-establecidas por el sistema que se rigen por la normativa venezolana',
   },
-
-  // Administración
   {
-    resource: 'admin',
-    action: 'access',
-    description: 'Acceso a panel administrativo',
-  },
-  { resource: 'admin', action: 'users', description: 'Gestionar usuarios' },
-  { resource: 'admin', action: 'roles', description: 'Gestionar roles' },
-  {
-    resource: 'admin',
-    action: 'system',
-    description: 'Configuración del sistema',
+    resource: 'calculation_policies',
+    action: 'update',
+    description:
+      'Aumentar el recargo de horas extras, Domingo trabajado, y otros conceptos',
   },
 ];

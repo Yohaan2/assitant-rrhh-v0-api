@@ -1,7 +1,10 @@
 version: '3.8'
+
 services:
+  # Servicio de PostgreSQL
   postgres:
-    image: postgres:17
+    image: postgres:latest
+    container_name: assitant-rrhh-postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -15,5 +18,36 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - app-network
+
+  # Servicio de la aplicación NestJS
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    container_name: assitant-rrhh-api
+    environment:
+      - NODE_ENV=production
+      - PORT=3005
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - '3005:3005'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
+
 volumes:
   pgdata:

@@ -35,7 +35,9 @@ export class PermissionsGuard implements CanActivate {
     }
 
     // Obtener permisos del usuario
-    const userPermissions = await this.authService.getUserPermissions(user.id);
+    const userPermissions = await this.authService.getUserPermissions(
+      user.email as string,
+    );
 
     // Verificar si el usuario tiene TODOS los permisos requeridos
     return requiredPermissions.every((permission) =>

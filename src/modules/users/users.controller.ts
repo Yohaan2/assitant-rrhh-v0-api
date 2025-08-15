@@ -5,14 +5,21 @@ import {
   Body,
   Patch,
   Param,
-  Delete,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { SeedsService } from '../../database/seeds/seeds.service';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { Request } from 'express';
 
-@Controller('users')
+@ApiTags('Users')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
+@Controller('user')
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
@@ -20,8 +27,9 @@ export class UsersController {
   ) {}
 
   @Post('create')
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  create(@Req() req: Request, @Body() createUserDto: CreateUserDto) {
+    const tenantId = req.headers['x-tenant-id'] as string;
+    return this.usersService.create(createUserDto, tenantId);
   }
 
   @Get()
@@ -29,18 +37,28 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @Get('test')
+  async getUser() {
+    return this.usersService.getUsers('tenant_factory1');
+  }
+
+  @Get('seed/:schema')
+  async seedForTenant(@Param('schema') schema: string) {
+    return this.seedsService.runSeedsForTenant(schema);
+  }
+
+  @Get('seed-all')
+  async seedAllTenants() {
+    return this.seedsService.runSeedsForAllTenants();
+  }
+
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return this.usersService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(+id, updateUserDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
   }
 }

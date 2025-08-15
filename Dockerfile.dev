@@ -1,0 +1,24 @@
+# Dockerfile para desarrollo
+FROM node:22-alpine
+
+# Configurar directorio de trabajo
+WORKDIR /app
+
+# Instalar dependencias del sistema necesarias
+RUN apk add --no-cache libc6-compat
+
+# Copiar archivos de dependencias
+COPY package.json yarn.lock* ./
+
+# Instalar dependencias
+RUN yarn install --frozen-lockfile
+
+# Copiar configuración de TypeScript y Nest
+COPY tsconfig*.json ./
+COPY nest-cli.json ./
+
+# Exponer puerto
+EXPOSE 3005
+
+# Comando por defecto (será sobrescrito por docker-compose)
+CMD ["yarn", "start:dev"] 

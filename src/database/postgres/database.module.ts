@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { DataSource } from 'typeorm';
+import { Tenant } from '../../modules/tenant/entities/tenant.entity';
 
 @Module({
   imports: [
@@ -14,13 +15,17 @@ import { DataSource } from 'typeorm';
         username: configService.getOrThrow('POSTGRES_USER'),
         password: configService.getOrThrow('POSTGRES_PASSWORD'),
         database: configService.getOrThrow('POSTGRES_DB'),
-        entities: [join(__dirname, '../../**/*.entity.{js,ts}')],
-        migrations: [join(__dirname, '../migrations/*.{js,ts}')],
+        entities: [Tenant],
+        migrations: [join(__dirname, '../migrations/global/*.{js,ts}')],
         migrationsTableName: 'migrations',
         autoLoadEntities: true,
         synchronize: false,
         migrationsRun: false,
         logging: true,
+        schema: 'public',
+        // ssl: {
+        //   rejectUnauthorized: false,
+        // },
       }),
       inject: [ConfigService],
     }),

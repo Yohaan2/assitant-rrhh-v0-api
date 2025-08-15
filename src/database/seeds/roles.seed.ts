@@ -1,85 +1,75 @@
 export const rolesData = [
   {
-    name: 'super_admin',
+    name: 'auxiliar_vacaciones',
+    description:
+      'Auxiliar de Vacaciones - Manejo de cálculos, recibos y reportes de vacaciones',
+    permissions: [
+      'vacation:calculate',
+      'vacation:generate_receipt',
+      'vacation:request_receipt_send',
+      'vacation:generate_report',
+      'vacation:request_report_send',
+    ],
+  },
+  {
+    name: 'auxiliar_nomina',
+    description:
+      'Auxiliar de Nómina - Manejo de cálculos, recibos y reportes de nómina',
+    permissions: [
+      'payroll:calculate',
+      'payroll:request_adjustment',
+      'payroll:generate_receipt',
+      'payroll:request_receipt_send',
+      'payroll:generate_report',
+      'payroll:request_report_send',
+    ],
+  },
+  {
+    name: 'auxiliar_liquidacion',
+    description:
+      'Auxiliar de Liquidación - Manejo de cálculos, recibos y reportes de liquidaciones',
+    permissions: [
+      'settlement:calculate',
+      'settlement:generate_receipt',
+      'settlement:request_receipt_send',
+      'settlement:generate_report',
+      'settlement:request_report_send',
+    ],
+  },
+  {
+    name: 'administrador',
     description: 'Administrador con acceso completo al sistema',
     permissions: [
-      'employees:create',
-      'employees:read',
-      'employees:update',
-      'employees:delete',
-      'employees:export',
-      'payroll:create',
-      'payroll:read',
-      'payroll:update',
-      'payroll:delete',
-      'payroll:approve',
-      'payroll:export',
-      'reports:read',
-      'reports:export',
-      'reports:advanced',
-      'departments:create',
-      'departments:read',
-      'departments:update',
-      'departments:delete',
-      'documents:upload',
-      'documents:read',
-      'documents:delete',
-      'admin:access',
-      'admin:users',
-      'admin:roles',
-      'admin:system',
+      // Permisos de vacaciones
+      'vacation:calculate',
+      'vacation:generate_receipt',
+      'vacation:request_receipt_send',
+      'vacation:generate_report',
+      'vacation:request_report_send',
+      // Permisos de nómina
+      'payroll:calculate',
+      'payroll:request_adjustment',
+      'payroll:generate_receipt',
+      'payroll:request_receipt_send',
+      'payroll:generate_report',
+      'payroll:request_report_send',
+      // Permisos de liquidación
+      'settlement:calculate',
+      'settlement:generate_receipt',
+      'settlement:request_receipt_send',
+      'settlement:generate_report',
+      'settlement:request_report_send',
+      // Permisos de notificaciones
+      'notifications:approve',
+      'notifications:reject',
+      // Permisos de expedientes
+      'employee_records:create',
+      'employee_records:read',
+      // Permisos de información personal
+      'personal_info:update',
+      // Permisos de políticas
+      'calculation_policies:create',
+      'calculation_policies:update',
     ],
-  },
-  {
-    name: 'hr_manager',
-    description: 'Manager de Recursos Humanos',
-    permissions: [
-      'employees:create',
-      'employees:read',
-      'employees:update',
-      'employees:export',
-      'payroll:create',
-      'payroll:read',
-      'payroll:update',
-      'payroll:approve',
-      'payroll:export',
-      'reports:read',
-      'reports:export',
-      'reports:advanced',
-      'departments:read',
-      'departments:update',
-      'documents:upload',
-      'documents:read',
-      'documents:delete',
-    ],
-  },
-  {
-    name: 'payroll_specialist',
-    description: 'Especialista en Nóminas',
-    permissions: [
-      'employees:read',
-      'payroll:create',
-      'payroll:read',
-      'payroll:update',
-      'payroll:export',
-      'reports:read',
-      'reports:export',
-      'departments:read',
-      'documents:read',
-    ],
-  },
-  {
-    name: 'employee',
-    description: 'Empleado regular',
-    permissions: [
-      'employees:read', // Solo su propia información
-      'documents:read', // Solo sus propios documentos
-      'reports:read', // Solo reportes básicos
-    ],
-  },
-  {
-    name: 'viewer',
-    description: 'Solo lectura',
-    permissions: ['employees:read', 'departments:read', 'reports:read'],
   },
 ];
